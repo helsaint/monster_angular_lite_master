@@ -9,7 +9,12 @@ import { FeedsComponent } from "./dashboard-components/feeds/feeds.component";
 import { TopSellingComponent } from "./dashboard-components/top-selling/top-selling.component";
 import { TopCardsComponent } from "./dashboard-components/top-cards/top-cards.component";
 import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards.component";
+import { ChoroplethComponent } from './dashboard-components/choropleth/choropleth.component';
 
+import * as PlotlyJS from 'plotly.js-dist-min'
+import { PlotlyModule } from 'angular-plotly.js'
+
+PlotlyModule.plotlyjs = PlotlyJS;
 
 const routes: Routes = [
   {
@@ -29,6 +34,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     NgApexchartsModule,
+    CommonModule, 
+    PlotlyModule,
   ],
   declarations: [
     DashboardComponent,
@@ -36,7 +43,8 @@ const routes: Routes = [
     FeedsComponent,
     TopSellingComponent,
     TopCardsComponent,
-    BlogCardsComponent
+    BlogCardsComponent,
+    ChoroplethComponent,
   ],
 })
 export class DashboardModule {}
