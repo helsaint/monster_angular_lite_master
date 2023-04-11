@@ -19,7 +19,7 @@ export class ChoroplethComponent implements OnInit {
         type:'scatter'
       }
     ],
-    layout: {title: 'Scatter Plot of Wages against value', widht:600, height: 600}
+    layout: {title: 'Scatter Plot of Wages against value'}
   };
 
   playerData:any=null;
