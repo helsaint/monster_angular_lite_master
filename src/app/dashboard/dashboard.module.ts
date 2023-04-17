@@ -12,7 +12,8 @@ import { BlogCardsComponent } from "./dashboard-components/blog-cards/blog-cards
 import { ChoroplethComponent } from './dashboard-components/choropleth/choropleth.component';
 
 import * as PlotlyJS from 'plotly.js-dist-min'
-import { PlotlyModule } from 'angular-plotly.js'
+import { PlotlyModule } from 'angular-plotly.js';
+import { ScatterplotComponent } from './dashboard-components/scatterplot/scatterplot.component'
 
 PlotlyModule.plotlyjs = PlotlyJS;
 
@@ -45,6 +46,7 @@ const routes: Routes = [
     TopCardsComponent,
     BlogCardsComponent,
     ChoroplethComponent,
+    ScatterplotComponent,
   ],
 })
 export class DashboardModule {}
