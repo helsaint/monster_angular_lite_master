@@ -94,7 +94,9 @@ export class ScatterplotComponent implements OnInit {
       else{
         return '#ccc';
       }
-    });
+    })
+    .append("title")
+    .text((d:any)=> d.properties.name + ": " + d.properties.numplayers);
   }
 
   private ColorLuminance(hex:any, lum:any) {
