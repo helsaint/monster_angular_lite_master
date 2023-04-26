@@ -70,7 +70,7 @@ export class ScatterplotComponent implements OnInit {
     const color_start = '#001100';
     let next_color = color_start;
     for(let i = 0; i < player_domain.length; i++){
-      next_color = this.ColorLuminance(next_color,0.1);
+      next_color = this.ColorLuminance(next_color,0.15);
       color_range.push(next_color);
     }
 
