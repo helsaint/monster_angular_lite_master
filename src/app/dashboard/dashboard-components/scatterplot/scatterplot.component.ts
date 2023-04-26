@@ -36,7 +36,6 @@ export class ScatterplotComponent implements OnInit {
     this.api.getChoroplethData().subscribe((data)=>{
       //this.drawMap(this.dataset_geo);
       this.dataset_sofifa = data;
-      this.fillMap(this.dataset_sofifa);
       for (const i in this.dataset_geo.features){
         if(this.dataset_sofifa.hasOwnProperty(this.dataset_geo.features[i].id)){
           let str_temp = this.dataset_geo.features[i].id;
@@ -52,10 +51,6 @@ export class ScatterplotComponent implements OnInit {
 
   }
 
-  private fillMap(data: any): void{
-    
-  }
-
   private drawMap(topo:any): void{
 
     this.svg = d3.select(".map")
@@ -69,10 +64,19 @@ export class ScatterplotComponent implements OnInit {
     .translate([this.width/2, this.height/2]);
 
     let path = d3.geoPath().projection(projection);
+    const player_domain = [0, 10,50,100,200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,
+      1700,1800,1900,2000,2100,2200,2300,2400,2500,2600,2700,2800,2900,3000];
+    const color_range = [];
+    const color_start = '#001100';
+    let next_color = color_start;
+    for(let i = 0; i < player_domain.length; i++){
+      next_color = this.ColorLuminance(next_color,0.1);
+      color_range.push(next_color);
+    }
 
     let color_scale = d3.scaleThreshold<number,string>()
-    .domain([10,50,100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000])
-    .range(d3.schemeCategory10);
+    .domain(player_domain)
+    .range(color_range);
 
     this.svg.append("g")
     .selectAll("path")
@@ -81,7 +85,7 @@ export class ScatterplotComponent implements OnInit {
     .append("path")
     .attr("class", "country")
     .attr("d", path)
-    .style('fill', function (d:any) {
+    .attr('fill', function (d:any) {
       const value = d.properties['numplayers'];
       if(value){
         return color_scale(d.properties['numplayers']);
@@ -91,6 +95,25 @@ export class ScatterplotComponent implements OnInit {
         return '#ccc';
       }
     });
+  }
+
+  private ColorLuminance(hex:any, lum:any) {
+    // validate hex string
+	  hex = String(hex).replace(/[^0-9a-f]/gi, '');
+	  if (hex.length < 6) {
+	  	hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+	  }
+	  lum = lum || 0;
+
+	  // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+	  for (i = 0; i < 3; i++) {
+		  c = parseInt(hex.substr(i*2,2), 16);
+		  c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+		  rgb += ("00"+c).substr(c.length);
+	  }
+
+	  return rgb;
   }
 
   
